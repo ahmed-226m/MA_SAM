@@ -63,12 +63,13 @@ class SpineDataset(Dataset):
         
         # 1. Load Image
         img_path = os.path.join(self.img_dir, data_item['img'])
-        img = Image.open(img_path).convert('L') 
+        img = Image.open(img_path).convert('L')
         
         # 2. Load Mask (Ground Truth)
         mask_path = os.path.join(self.mask_dir, data_item['mask'])
         if os.path.exists(mask_path):
-             mask = Image.open(mask_path)
+             # Ensure ground-truth masks are single-channel
+             mask = Image.open(mask_path).convert('L')
         else:
             # Fallback if mask missing? Or error?
             # For now create empty mask
@@ -93,7 +94,7 @@ class SpineDataset(Dataset):
         atlas_masks = []
         for atlas_name in selected_atlases:
             ap = os.path.join(self.atlas_dir, atlas_name)
-            am = Image.open(ap)
+            am = Image.open(ap).convert('L')
             am = am.resize((self.image_size, self.image_size), resample=Image.NEAREST)
             am_np = np.array(am)
             atlas_masks.append(torch.from_numpy(am_np).float())
@@ -115,6 +116,7 @@ class SpineDataset(Dataset):
         img_tensor = img_tensor / 255.0 
 
         mask_np = np.array(mask)
-        mask_tensor = torch.from_numpy(mask_np).long()
+        # Add a channel dimension so masks have shape [1, H, W] as expected by the loss
+        mask_tensor = torch.from_numpy(mask_np).long().unsqueeze(0)
 
         return img_tensor, mask_tensor, atlas_tensor

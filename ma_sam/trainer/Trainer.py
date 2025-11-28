@@ -2,7 +2,7 @@ from math import ceil
 
 import torch
 import torch.distributed as dist
-from metric.myMetric import multiclass_dice_coeff
+from ma_sam.metric.myMetric import multiclass_dice_coeff
 
 def train_with_atlas_DDP_2D(rank, net, monitor, sampler, dataloader, loss_function, optimizer, epoch, device, args):
     def init():

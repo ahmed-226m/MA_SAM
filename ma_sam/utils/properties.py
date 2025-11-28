@@ -10,13 +10,13 @@ properties = {
         'data_file_path': r'',
     },
     'spine_2d': {
-        'weight_path': r'd:/GP/main/phase_2/MA_SAM/utiles/ma-sam/weights',
-        'img_path': r'd:/GP/main/phase_2/MA_SAM/utiles/2d_data/mip_2d_images_volumes',
-        'mask_path': r'd:/GP/main/phase_2/MA_SAM/utiles/2d_data/mip_2d_images_masks',
-        'atlas_path': r'd:/GP/main/phase_2/MA_SAM/utiles/2d_data/atlas_images',
-        'data_file_path': r'd:/GP/main/phase_2/MA_SAM/utiles/ma-sam/data_lists', 
+        'weight_path': r'/workspaces/MA_SAM/ma_sam/weights',
+        'img_path': r'/workspaces/MA_SAM/2d_data/mip_2d_images_volumes',
+        'mask_path': r'/workspaces/MA_SAM/2d_data/mip_2d_images_masks',
+        'atlas_path': r'/workspaces/MA_SAM/2d_data/atlas_images',
+        'data_file_path': r'/workspaces/MA_SAM/ma_sam/utiles/ma-sam/data_lists', 
     },
-    'SAM_weight_path': r'd:/GP/main/phase_2/MA_SAM/utiles/ma-sam/weights',
+    'SAM_weight_path': r'/workspaces/MA_SAM/ma_sam/weights',
     'model_size': {
             'small': {
                 'encoder_embed_dim': 768,

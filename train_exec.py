@@ -32,8 +32,10 @@ def process(rank, args, train_dataset, val_dataset, weight_base_path, sam_weight
     set_seed(221)
     
     # Initialize Process Group
-    # Use 'gloo' for Windows compatibility if NCCL fails or for CPU
-    backend = 'gloo' if os.name == 'nt' else 'nccl'
+    # Select backend depending on whether CUDA/GPU is available
+    # - use 'nccl' when CUDA is available (fast GPU backend)
+    # - fall back to 'gloo' when no CUDA is available (CPU-friendly)
+    backend = 'nccl' if torch.cuda.is_available() else 'gloo'
     dist.init_process_group(backend, init_method='env://', rank=rank, world_size=args.world_size)
     
     device = torch.device(f'cuda:{rank}') if torch.cuda.is_available() else torch.device('cpu')
